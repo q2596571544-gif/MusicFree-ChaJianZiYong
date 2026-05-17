@@ -1,14 +1,14 @@
 // AI曼波UP主与作品索引 - MusicFree 适配版
 // 作者: 朔㷰磐
-// 功能: 搜索"AI曼波"或"菜单"查看全部UP主，搜索UP主名展开作品，搜索曲名直接定位，专辑字段可复制作品名
+// 功能: 搜索“AI曼波”或“菜单”查看全部UP主，搜索UP主名展开作品，搜索曲名直接定位，专辑字段可复制作品名
 module.exports = {
     platform: "曼波索引",
     author: "朔㷰磐",
-    version: "1.1.0",
+    version: "1.2.0",
     primaryKey: ["id"],
     cacheControl: "no-cache",
     hints: {
-        importMusicItem: ["搜索"AI曼波"或"菜单"查看全部UP主。", "搜索UP主名展开其全部作品。", "搜索曲名直接定位。", "专辑字段为作品名，点击即可复制。"],
+        importMusicItem: ["搜索“AI曼波”或“菜单”查看全部UP主。", "搜索UP主名展开其全部作品。", "搜索曲名直接定位。", "专辑字段为作品名，点击即可复制。"],
         importMusicSheet: []
     },
 
@@ -51,7 +51,6 @@ module.exports = {
         this._buildFlatItems();
         var flat = this._flatItems;
 
-        // 菜单触发
         if (query === "菜单" || query === "分类" || query === "帮助" || query === "AI曼波") {
             var cats = this._categories;
             var items = [];
@@ -69,7 +68,6 @@ module.exports = {
             return { isEnd: e >= items.length, data: items.slice(s, e) };
         }
 
-        // 精确匹配UP主名 → 展开其全部作品
         var q = query.toLowerCase();
         for (var i = 0; i < this._categories.length; i++) {
             if (this._categories[i].name.toLowerCase() === q) {
@@ -90,7 +88,6 @@ module.exports = {
             }
         }
 
-        // 模糊匹配曲名或UP主名
         var matched = [];
         for (var i = 0; i < flat.length; i++) {
             if (flat[i].term.toLowerCase().indexOf(q) !== -1 || flat[i].path.toLowerCase().indexOf(q) !== -1) {
